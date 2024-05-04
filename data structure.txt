@@ -1,0 +1,292 @@
+DATA STRUCTURE:
+
+LINEAR SEARCH : searching value one by one
+l=[9,7,78,10,5,1,0]
+l.sort()
+left=10
+right=len(l)-1
+
+[0, 1, 5, 7, 9, 10, 78]
+
+l=[9,7,78,10,5,1,0]
+
+ex:
+l.sort()
+print(l)
+i=0
+j=len(l)-1
+s=10
+while i<j:
+    mid=(i+j)//2
+    if l[mid]==s:
+        print(mid,"found")
+        break
+    elif l[mid]>s:
+        j=mid-1
+    else:
+        i=mid+1
+else:
+    print("not found")
+
+[0, 1, 5, 7, 9, 10, 78]
+
+5 found
+
+bit o(1):
+
+space complexity:we should concentrate on time complexity
+
+Sorting: it saves time than binary search
+
+Bubble sort:
+l=[8, 7, 6, 5, 4, 3, 2, 1]
+for i in range(0,len(l)-1):
+    for j in range(0,len(l)-i-1):
+        if l[j]>l[j+1]:
+            l[j],l[j+1]=l[j+1],l[j]
+print(l)            
+            
+[1, 2, 3, 4, 5,6, 7, 8] 
+
+Insertion sorting:
+
+b=[3,4,5,6,19,21,10]
+for i in range(1,len(b)):
+    j=i-1
+    a=b[i]
+    while j>=0 and b[j]>a:
+        b[j+1]=b[j]
+        j-=1
+    b[j+1]=a  
+print(b)    
+
+[3, 4, 5, 6, 10, 19, 21]
+
+Divide and conquer rule:
+
+conquer:means sorting
+
+def merge(arr,beg,mid,end):
+    n1=mid-beg+1
+    n2=end-mid
+    i=j=k=0     #i=left arr j=right
+    left=arr[beg:mid+1]
+    right=arr[mid+1:end+1]
+    k=beg
+    while i<n1 and j<n2:
+        if left[i]<=right[j]:
+            arr[k]=arr[i]
+            i+=1
+            k+=1
+        else:
+            arr[k]=right[j]
+            j+=1
+            k+=1
+    while i<n1:
+        arr[k]=left[i]
+        k+=1
+        i+=1 
+    while j<n2:
+        arr[k]=right[j]
+        k+=1
+        j+=1  
+def mergesort(arr,beg,end):
+    if beg<end:
+        mid=(beg+end)//2
+        mergesort(arr,beg,mid)
+        mergesort(arr,mid+1,end)
+        merge(arr,beg,mid,end)
+a=[8,7,6,4,3,2,1]
+b=0
+e=len(a)-1
+mergesort(a,b,e)
+print(a)
+
+O:
+[1, 2, 3, 4, 5, 6, 7, 8]
+
+   
+>.Quick sort:
+
+def partetion(arr,low,high):
+    pivot=arr[low]
+    start=low+1
+    end=high
+    while True:
+        while start<=end and arr[start]<=pivot:
+            start+=1
+        while start<=end and arr[end]>pivot:
+            end-=1
+        if start<end:
+            arr[start],arr[end]=arr[end],arr[start]
+        else:
+            break
+    arr[low],arr[end]=arr[end],arr[low]
+    return end
+def quicksort(arr,beg,end):
+        if beg==end:
+            p=partetion(arr,beg,end)
+            quicksort(arr,beg,p-1)
+            quicksort(arr,p+1,end)
+a=[8,7,6,4,5,2,1,3]
+b=0
+e=len(a)-1
+quicksort(a,b,e)
+print(a)
+
+o:
+[8, 7, 6, 4, 5, 2, 1, 3]
+
+    
+ Stack and Queue:
+
+we can implement stack and queue by using list
+
+stack:
+
+class stack:
+    def __init__(self):
+        self.top=-1
+        self.size=5
+        self.list=[]
+    def push(self,data):
+        if len(self.list)==5:
+            print("full")
+            return 0
+        self.top=-1
+        self.list.append(data)
+    def pop(self):
+        if len(self.list)==0:
+            print("empty")
+            return 0
+        self.top-=1
+        self.list.pop()
+    def peek(self):
+        print(self.list)
+        if len(self.list)==0:
+            print("empty")
+            return 0
+        elif self.top>5:
+            print("out of index")
+        else:
+            print(self.list[self.top])
+s=stack()
+s.push(1)
+s.push(2)
+s.push(3)
+s.push(4)
+s.push(5)
+s.pop()
+s.push(6)
+s.peek()
+
+O:
+[1, 2, 3, 4, 6]
+6
+
+Queue:
+
+  IMPLEMENT STACK USING QUEUE:
+
+l=[1,2,3,4]
+s=[]
+def pop():
+    for i in range(len(l)):
+        s.append(l.pop())
+    s.pop()
+    for i in range(len(s)):
+        l.append(s.pop())
+pop()
+print(l)
+
+O:[2, 3, 4]
+
+LINKED LIST:
+
+TREES:
+
+class node:
+    def __init__(self,data):
+        self.left=None
+        self.data=data
+        self.right=None
+def inorder(root):
+    if root:
+        inorder(root.left)
+        print(root.data)
+        inorder(root.right)
+r=node(1)
+r.left=node(2)
+r.right=node(3)
+r.left.left=node(4)
+r.left.right=node(5)
+inorder(r)
+
+O:
+4
+2
+5
+1
+3
+
+BINARY SEARCH TREE:
+
+class node:
+    def __init__(self,data):
+        self.left=None
+        self.data=data
+        self.right=None 
+class trees:
+    def __init__(self):
+        self.root=None
+    def insert(self,value):
+        newnode=node(value)
+        if self.root is None:
+            self.root=newnode
+        else:
+            curr=self.root
+            while True:
+                if value<=curr.data:
+                    if curr.left is None:
+                        curr.left=newnode
+                        break
+                    else:
+                        curr=curr.left
+                else:
+                    if curr.right is None:
+                        curr.right=newnode
+                        break
+                    else:
+                        curr=curr.right
+    def inorder(self):
+        self.inorderhelper(self.root)
+    def inorderhelper(self,root):
+      if root:
+        self.inorderhelper(root.left)
+        print(root.data)
+        self.inorderhelper(root.right)
+r=trees()
+r.insert(5) 
+r.insert(2)
+r.insert(6)
+r.inorder()
+
+O:
+2
+5
+6
+
+
+
+
+
+
+
+
+
+
+
+
+
+           
+
